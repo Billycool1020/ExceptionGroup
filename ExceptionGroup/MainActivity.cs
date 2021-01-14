@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Runtime;
@@ -51,7 +52,20 @@ namespace ExceptionGroup
 
         private void FabOnClick(object sender, EventArgs eventArgs)
         {
-            View view = (View) sender;
+            try
+            {
+                // your code here.
+            }
+            catch (Exception exception)
+            {
+                var properties = new Dictionary<string, string> {
+                    { "Category", "Music" },
+                    { "Wifi", "On" }
+                };
+                Crashes.TrackError(exception, properties);
+            }
+
+            View view = (View)sender;
             Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
                 .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
         }
@@ -62,5 +76,5 @@ namespace ExceptionGroup
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-	}
+    }
 }
